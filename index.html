@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Up Games</title>
+
+<style>
+body { font-family: Arial; background:#f4f4f4; margin:0 }
+header { background:#333; color:#fff; padding:20px; text-align:center }
+.container { background:#fff; max-width:800px; margin:20px auto; padding:20px; border-radius:8px }
+form { display:flex; flex-direction:column }
+label { margin-top:10px }
+input, select, button { padding:10px; margin-top:5px }
+button { background:#28a745; color:#fff; border:none; cursor:pointer }
+button:hover { background:#218838 }
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Top Up Games Online</h1>
+<p>Selamat datang di top up gemes bg kevin kece</p>
+</header>
+
+<div class="container">
+<h2>Pilih Game dan Nominal</h2>
+
+<form id="topup-form">
+
+<label>Pilih Game</label>
+<select id="game" required>
+<option value="">-- Pilih Game --</option>
+<option value="ml">Mobile Legends</option>
+<option value="ff">Free Fire</option>
+</select>
+
+<label>Nominal</label>
+<select id="nominal" required>
+<option value="">-- Pilih Nominal --</option>
+</select>
+
+<label>ID Game</label>
+<input type="text" id="id_game" required>
+
+<label>Nama Pembeli</label>
+<input type="text" id="nama_pembeli" required>
+
+<button type="submit">Top Up via WhatsApp</button>
+</form>
+
+<p style="font-size:12px;color:#666">
+⚠️ Pastikan ID game benar. Kesalahan ID bukan tanggung jawab admin.
+</p>
+</div>
+
+<script>
+const dataNominal = {
+ml: [
+{ text: "5 Diamond - Rp 2.000" },
+{ text: "77 Diamond - Rp 24.000" },
+{ text: "154 Diamond - Rp 45.000" },
+{ text: "217 Diamond - Rp 65.000" },
+{ text: "367 Diamond - Rp 106.000" }
+],
+ff: [
+{ text: "5 Diamond - Rp 2.000" },
+{ text: "12 Diamond - Rp 4.000" },
+{ text: "50 Diamond - Rp 10.000" },
+{ text: "140 Diamond - Rp 25.000" },
+{ text: "355 Diamond - Rp 55.000" }
+]
+};
+
+document.getElementById("game").addEventListener("change", function(){
+const nominal = document.getElementById("nominal");
+nominal.innerHTML = '<option value="">-- Pilih Nominal --</option>';
+
+(dataNominal[this.value] || []).forEach(item => {
+const opt = document.createElement("option");
+opt.textContent = item.text;
+nominal.appendChild(opt);
+});
+});
+
+document.getElementById("topup-form").addEventListener("submit", function(e){
+e.preventDefault();
+
+const game = document.getElementById("game").selectedOptions[0].text;
+const nominal = document.getElementById("nominal").value;
+const idGame = document.getElementById("id_game").value;
+const nama = document.getElementById("nama_pembeli").value;
+
+const nomorWA = "6281370803374";
+
+const pesan = `Halo admin, saya mau top up:
+
+🎮 Game: ${game}
+💎 Nominal: ${nominal}
+🆔 ID Game: ${idGame}
+👤 Nama: ${nama}
+
+Mohon diproses 🙏`;
+
+window.open("https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(pesan));
+});
+</script>
+
+</body>
+</html>
